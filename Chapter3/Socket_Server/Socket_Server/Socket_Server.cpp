@@ -1,22 +1,144 @@
 ﻿#include <WinSock2.h>
 #include <iostream>
+#include <cassert>
 
 #pragma comment(lib, "Ws2_32.lib") // 加入 lib 才能使用 WinSock2
 
 using namespace std;
 
+const char IP_NUM[] = "192.168.1.114";
+const WORD PORT_NUM = 9527;
+
 int main()
 {
-    cout << "初始化 Windows Sockets DLL" << endl;
+    int result;
+
+    cout << "1. 初始化 Windows Sockets DLL." << endl;
     WSAData wsaData;
-    WORD version = MAKEWORD(2, 2);
-    int result = WSAStartup(version, &wsaData);
+    WORD version = MAKEWORD(2, 2); //winsocket-dll version (最低版本, 最高版本)
+    result = WSAStartup(version, &wsaData);
     if (result == 0)
     {
-        cout << "result = " << result << "; Windows Sockets DLL 初始化成功" << endl;
+        cout << "Windows Sockets DLL 初始化成功." << endl;
     }
     else
     {
-        cout << "result = " << result << "; Windows Sockets DLL 初始化失敗" << endl;
+        cout << "result = " << result << "; Windows Sockets DLL 初始化失敗." << endl;
     }
+    if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2)
+    {
+        cout << "找不到合適的 Winsock dll 版本." << endl;
+        WSACleanup();
+        return 1;
+    }
+    else
+    {
+        cout << "Winsock 2.2 dll 版本已找到." << endl;
+    }
+
+    cout << "\n2. 建立 監聽Socket" << endl;
+    SOCKET sListen = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (sListen == INVALID_SOCKET)
+    {
+        cout << "監聽Socket 建立失敗！" << endl;
+        cout << "error: " << WSAGetLastError() << endl;
+        WSACleanup();
+        return 1;
+    }
+    else
+    {
+        cout << "建立成功！" << endl;
+    }
+
+    cout << "設定 IP:Port...";
+    SOCKADDR_IN addrListener;
+    memset(&addrListener, 0, sizeof(addrListener));         // 清空,將資料設為 0    
+    addrListener.sin_addr.s_addr = inet_addr(IP_NUM);       // 設定 IP
+    addrListener.sin_family = AF_INET;
+    addrListener.sin_port = htons(PORT_NUM);                // 設定 port
+
+    cout << "綁定指定位址...";
+    result = bind(sListen, (SOCKADDR*)&addrListener, sizeof(addrListener));
+    if (result == SOCKET_ERROR) 
+    {
+        cout << "綁定失敗！" << "error: " << WSAGetLastError() << endl;
+        WSACleanup();
+        return 1;
+    }
+    else
+    {
+        cout << "綁定成功！" << endl;
+    }
+
+    cout << "\n3. 開始監聽連線" << endl;
+    result = listen(sListen, SOMAXCONN);
+    if (result == SOCKET_ERROR)
+    {
+        cout << "監聽失敗！error: " << WSAGetLastError() << endl;
+        closesocket(sListen);
+        WSACleanup();
+        return 1;
+    }
+    else 
+    {
+        cout << "監聽中..." << endl;
+    }
+
+    cout << "\n4. connect" << endl;
+    SOCKET sConnect;
+    struct sockaddr_in clientAddr;  // 儲存 client 端位址資訊
+    int clientAddrLen = sizeof(clientAddr);
+    while (1)
+    {
+        cout << "等待 connect...";
+        if (sConnect = accept(sListen, (SOCKADDR*)&clientAddr, &clientAddrLen))
+        {
+            cout << "連線出現！";
+            cout << "Server : got a connection from : " << inet_ntoa(clientAddr.sin_addr) << endl;
+
+            //Send message to client
+            const char* sendbuf = "Server: I receive your connection";
+            result = send(sConnect, sendbuf, (int)strlen(sendbuf), 0);
+            if (result == SOCKET_ERROR)
+            {
+                cout << "send failed with error :" << WSAGetLastError() << endl;
+                closesocket(sConnect);
+                WSACleanup();
+                return 1;
+            }
+        }
+
+        if (sConnect && sConnect != INVALID_SOCKET) 
+        {
+            cout << "收到訊息：";
+            char message[200];
+            ZeroMemory(message, 200);
+            result = recv(sConnect, message, sizeof(message), 0);
+            if (result > 0)
+            {
+                cout << message << endl;
+            }
+            else if (result == 0)
+            {
+                cout << "連線已關閉！error: " << WSAGetLastError() << endl;
+                closesocket(sConnect);
+                WSACleanup();
+                return 1;
+            }
+            else
+            {
+                cout << "接收失敗！error: " << WSAGetLastError() << endl;
+                closesocket(sConnect);
+                WSACleanup();
+                return 1;
+            }
+
+            cout << endl;
+        }
+    }
+
+    cout << "關閉連線..." << endl;
+    closesocket(sConnect);
+    closesocket(sListen);
+    WSACleanup();
 }

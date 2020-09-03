@@ -1,2 +1,3 @@
 ﻿  Socket_Server.cpp
+D:\Users\cihy9\Documents\Visual Studio 2019\Projects\Multiplayer-Game-Programming\Chapter3\Socket_Server\Socket_Server\Socket_Server.cpp(98,60): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
   Socket_Server.vcxproj -> D:\Users\cihy9\Documents\Visual Studio 2019\Projects\Multiplayer-Game-Programming\Chapter3\Socket_Server\Debug\Socket_Server.exe
