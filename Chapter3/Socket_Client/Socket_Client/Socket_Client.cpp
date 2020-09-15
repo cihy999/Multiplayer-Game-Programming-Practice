@@ -4,7 +4,7 @@
 
 using namespace std;
 
-const char IP_NUM[] = "192.168.1.114";
+const char IP_NUM[] = "127.0.0.1";
 const WORD PORT_NUM = 9527;
 
 int main()

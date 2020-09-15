@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const char IP_NUM[] = "192.168.1.114";
+const char IP_NUM[] = "127.0.0.1";
 const WORD PORT_NUM = 9527;
 
 int main()
@@ -110,13 +110,12 @@ int main()
 
         if (sConnect && sConnect != INVALID_SOCKET) 
         {
-            cout << "收到訊息：";
             char message[200];
             ZeroMemory(message, 200);
             result = recv(sConnect, message, sizeof(message), 0);
             if (result > 0)
             {
-                cout << message << endl;
+                cout << "收到訊息：" << message << endl;
             }
             else if (result == 0)
             {
