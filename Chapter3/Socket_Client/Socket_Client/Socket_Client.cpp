@@ -48,7 +48,22 @@ int main()
         return 1;
     }
 
-    cout << "\n3.接收訊息..." << endl;
+    cout << "\n3.傳送一個訊息..." << endl;
+    char sendbuf[] = "sending data test";
+    result = send(sConnect, sendbuf, sizeof(sendbuf), 0);
+    if (result != SOCKET_ERROR)
+    {
+        cout << "傳送出去了." << endl;
+    }
+    else
+    {
+        cout << "傳送失敗！error: " << WSAGetLastError() << endl;
+        closesocket(sConnect);
+        WSACleanup();
+        return 1;
+    }
+
+    cout << "\n4.接收訊息..." << endl;
     char message[200];
     ZeroMemory(message, 200);
     result = recv(sConnect, message, sizeof(message), 0);
@@ -66,21 +81,6 @@ int main()
     else
     {
         cout << "連線失敗！error: " << WSAGetLastError() << endl;
-        closesocket(sConnect);
-        WSACleanup();
-        return 1;
-    }
-
-    cout << "\n4.傳送一個訊息..." << endl;
-    char sendbuf[] = "sending data test";
-    result = send(sConnect, sendbuf, sizeof(sendbuf), 0);
-    if (result != SOCKET_ERROR) 
-    {
-        cout << "傳送出去了." << endl;
-    }
-    else
-    {
-        cout << "傳送失敗！error: " << WSAGetLastError() << endl;
         closesocket(sConnect);
         WSACleanup();
         return 1;

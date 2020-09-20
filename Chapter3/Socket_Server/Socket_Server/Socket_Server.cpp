@@ -95,17 +95,6 @@ int main()
         {
             cout << "連線出現！";
             cout << "Server : got a connection from : " << inet_ntoa(clientAddr.sin_addr) << endl;
-
-            //Send message to client
-            const char* sendbuf = "Server: I receive your connection";
-            result = send(sConnect, sendbuf, (int)strlen(sendbuf), 0);
-            if (result == SOCKET_ERROR)
-            {
-                cout << "send failed with error :" << WSAGetLastError() << endl;
-                closesocket(sConnect);
-                WSACleanup();
-                return 1;
-            }
         }
 
         if (sConnect && sConnect != INVALID_SOCKET) 
@@ -133,6 +122,17 @@ int main()
             }
 
             cout << endl;
+        }
+
+        //Send message to client
+        const char* sendbuf = "Server: I receive your message";
+        result = send(sConnect, sendbuf, (int)strlen(sendbuf), 0);
+        if (result == SOCKET_ERROR)
+        {
+            cout << "send failed with error :" << WSAGetLastError() << endl;
+            closesocket(sConnect);
+            WSACleanup();
+            return 1;
         }
     }
 

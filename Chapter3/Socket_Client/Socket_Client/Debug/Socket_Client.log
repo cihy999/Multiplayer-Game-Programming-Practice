@@ -1,3 +1,0 @@
-﻿  Socket_Client.cpp
-D:\Users\cihy9\Documents\Visual Studio 2019\Projects\Multiplayer-Game-Programming\Chapter3\Socket_Client\Socket_Client\Socket_Client.cpp(33,28): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-  Socket_Client.vcxproj -> D:\Users\cihy9\Documents\Visual Studio 2019\Projects\Multiplayer-Game-Programming\Chapter3\Socket_Client\Debug\Socket_Client.exe

@@ -1,4 +1,0 @@
-﻿  ioctlsocket_Server.cpp
-D:\Users\cihy9\Documents\Visual Studio 2019\Projects\Multiplayer-Game-Programming\Chapter3\ioctlsocket_Server\ioctlsocket_Server\ioctlsocket_Server.cpp(70,36): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-D:\Users\cihy9\Documents\Visual Studio 2019\Projects\Multiplayer-Game-Programming\Chapter3\ioctlsocket_Server\ioctlsocket_Server\ioctlsocket_Server.cpp(126,56): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-  ioctlsocket_Server.vcxproj -> D:\Users\cihy9\Documents\Visual Studio 2019\Projects\Multiplayer-Game-Programming\Chapter3\ioctlsocket_Server\Debug\ioctlsocket_Server.exe

@@ -140,20 +140,23 @@ int main()
 
             for (int i = 0; i < (int)writeSockets.fd_count; i++) 
             {
-                const char PRT[1024] = "I receive your message.";
-                result = send(writeSockets.fd_array[i], PRT, sizeof(PRT), 0);
-                if (result > 0)
+                if (FD_ISSET(writeSockets.fd_array[i], &fdWrite))
                 {
-                    cout << "傳送成功！" << endl;
-                    FD_CLR(writeSockets.fd_array[i], &writeSockets); // 刪除集合中的socket
-                    break;
-                }
-                else
-                {
-                    cout << "傳送失敗！ error: " << WSAGetLastError() << endl;
-                    closesocket(writeSockets.fd_array[i]);
-                    FD_CLR(writeSockets.fd_array[i], &writeSockets); // 刪除集合中的socket
-                    break;
+                    const char PRT[1024] = "I receive your message.";
+                    result = send(writeSockets.fd_array[i], PRT, sizeof(PRT), 0);
+                    if (result > 0)
+                    {
+                        cout << "傳送成功！" << endl;
+                        FD_CLR(writeSockets.fd_array[i], &writeSockets); // 刪除集合中的socket
+                        break;
+                    }
+                    else
+                    {
+                        cout << "傳送失敗！ error: " << WSAGetLastError() << endl;
+                        closesocket(writeSockets.fd_array[i]);
+                        FD_CLR(writeSockets.fd_array[i], &writeSockets); // 刪除集合中的socket
+                        break;
+                    }
                 }
             }
         }

@@ -1,4 +1,0 @@
-﻿  Socket_Server.cpp
-D:\Users\cihy9\Documents\Visual Studio 2019\Projects\Multiplayer-Game-Programming\Chapter3\Socket_Server\Socket_Server\Socket_Server.cpp(56,18): error C2039: 'S_un': 並非 'sockaddr_in' 的成員
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\WinSock2.h(4141): message : 請參閱 'sockaddr_in' 的宣告
-D:\Users\cihy9\Documents\Visual Studio 2019\Projects\Multiplayer-Game-Programming\Chapter3\Socket_Server\Socket_Server\Socket_Server.cpp(97,60): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings

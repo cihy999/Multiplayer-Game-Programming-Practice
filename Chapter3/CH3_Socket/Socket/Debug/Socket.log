@@ -1,9 +1,0 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: 中繼目錄 (Debug\) 包含從其他專案 (Socket.vcxproj) 共用的檔案。這可能導致錯誤的清除和重建行為。
-  SocketAddress.cpp
-  SocketAdressFactory.cpp
-  SocketUtil.cpp
-  TCPSocket.cpp
-  UDPSocket.cpp
-  main.cpp
-  正在產生程式碼...
-  Socket.vcxproj -> D:\Users\cihy9\Documents\Visual Studio 2019\Projects\Multiplayer-Game-Programming\CH3_Socket\Debug\CH3_Socket.exe
